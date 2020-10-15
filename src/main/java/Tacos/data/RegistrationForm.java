@@ -1,7 +1,5 @@
 package Tacos.data;
 
-import org.springframework.security.crypto.password.PasswordEncoder;
-
 import Tacos.User;
 import lombok.Data;
 
@@ -18,9 +16,9 @@ public class RegistrationForm {
 	private String phone;
 	
 	//passwordEncoder用于加密密码并传输到数据库中
-	public User toUser(PasswordEncoder passwordEncoder) {
+	public User toUser() {
 		return new User(
-			username, passwordEncoder.encode(password),
-			fullname, street, city, state, zip, phone);
+			username, password,
+			fullname, street, city, zip, phone);
 	}
 }

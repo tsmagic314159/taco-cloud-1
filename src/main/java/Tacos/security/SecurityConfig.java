@@ -27,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
+		auth.userDetailsService(userDetailsService);
 	}
 	
 //	@Override
@@ -42,10 +42,10 @@ protected void configure(HttpSecurity http) throws Exception {
 	http.authorizeRequests()
 	.antMatchers("/design", "/order")
 	.access("hasRole('ROLE_USER') && T(java.util.Calendar).getInstance().get(T(java.util.Calendar).DAY_OF_WEEK) == T(java.util.Calendar).TUESDAY")
-	.antMatchers("/", "/**").access("permitAll").and().formLogin().loginPage("/login")
+	.antMatchers("/", "/**").access("permitAll")
 	.and()
-	.formLogin().loginPage("/login").loginProcessingUrl("/authenticate")
-	.usernameParameter("user").passwordParameter("pwd").defaultSuccessUrl("/design", true)
+	.formLogin().loginPage("/login")
+	.usernameParameter("username").passwordParameter("password").defaultSuccessUrl("/design", true)
 	.and()
 	.logout().logoutSuccessUrl("/");
 }

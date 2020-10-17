@@ -8,16 +8,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import Tacos.data.RegistrationForm;
 import Tacos.data.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Controller
 @RequestMapping("/register")
 public class RegistrationController {
 	private UserRepository userRepo;
-//	private PasswordEncoder passwordEncoder;
+	private PasswordEncoder passwordEncoder;
 	
-	public RegistrationController(UserRepository userRepo) {
+	public RegistrationController(UserRepository userRepo, PasswordEncoder passwordEncoder) {
 		this.userRepo = userRepo;
-//		this.passwordEncoder = passwordEncoder;
+		this.passwordEncoder = passwordEncoder;
 	}
 	
 	@GetMapping
@@ -27,7 +29,8 @@ public class RegistrationController {
 	
 	@PostMapping
 	public String processRegistration(RegistrationForm form) {
-		userRepo.save(form.toUser());
+		userRepo.save(form.toUser(passwordEncoder));
+		log.info("RegistrationForm: "+ form.toUser(passwordEncoder));
 		return "redirect:/login";
 	}
 }

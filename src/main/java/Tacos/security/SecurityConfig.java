@@ -40,8 +40,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 @Override
 protected void configure(HttpSecurity http) throws Exception {
 	http.authorizeRequests()
-	.antMatchers("/design", "/order")
-	.access("hasRole('ROLE_USER') && T(java.util.Calendar).getInstance().get(T(java.util.Calendar).DAY_OF_WEEK) == T(java.util.Calendar).TUESDAY")
+	.antMatchers("/design", "/orders/*")
+	.access("hasRole('ROLE_USER')")
 	.antMatchers("/", "/**").access("permitAll")
 	.and()
 	.formLogin().loginPage("/login")

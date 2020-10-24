@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import Tacos.Ingredient;
 import Tacos.Taco;
-import Tacos.Ingredient.Type;
 import Tacos.Order;
 import Tacos.data.IngredientRepository;
 import Tacos.data.TacoRepository;
@@ -30,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @SessionAttributes("order")
 public class DesignTacoController {
 	
-	private final IngredientRepository ingredientRepo;
+	private IngredientRepository ingredientRepo;
 	
 	private TacoRepository designRepo;
 	
@@ -45,9 +44,9 @@ public class DesignTacoController {
 	public String showDesignForm(Model model) {
 		List<Ingredient> ingredients = new ArrayList<Ingredient>();
 		ingredientRepo.findAll().forEach(i -> ingredients.add(i));
-		
-		Type[] types = Ingredient.Type.values();
-		for(Type type : types) {
+		System.out.println(ingredients.size());
+		String[] types = {"PROTEIN", "CHEESE", "WRAP", "VEGGIES", "SAUCE"};
+		for(String type : types) {
 			model.addAttribute(type.toString().toLowerCase(),
 					filterbyType(ingredients, type));
 		}
@@ -57,7 +56,7 @@ public class DesignTacoController {
 		return "design";
 	}
 	
-	private List<Ingredient> filterbyType(List<Ingredient> ingredients, Type type){
+	private List<Ingredient> filterbyType(List<Ingredient> ingredients, String type){
 		//此处为一个lambda表达式，用来筛选出其中type相同的元素
 		return ingredients
 				.stream()
@@ -79,7 +78,7 @@ public class DesignTacoController {
 	//这里的@ModelAttribute表明Order的值是来自模型的，SpringMVC不会尝试将请求参数绑定到它上边。
 	public String processDesign(@Valid Taco design, Errors errors, @ModelAttribute Order order) {
 		
-		
+		System.out.println(design.getIngredients().get(0));
 		if (errors.hasErrors()) {
 			return "redirect:/design";
 		}

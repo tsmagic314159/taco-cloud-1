@@ -9,7 +9,7 @@ A taco_order web project made by Spring boot
 
 该项目采用H2内置数据库，无需外部配置下载即可使用。
 
-使用Spring Security实现用户的注册和登录。通过JDBC、SimpleJDBC以及JPA实现数据库操作
+使用Spring Security实现用户的注册和登录。通过JPA实现数据库操作
 
 使用Thymeleaf模板实现前后端分离。
 

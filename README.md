@@ -7,7 +7,7 @@ A taco_order web project made by Spring boot
 网页目的：
 构建一个用户制的塔克（墨西哥的一种食物）网上订购网站。
 
-该项目采用H2内置数据库，无需外部配置下载即可使用。
+该项目采用MySQL数据库
 
 使用Spring Security实现用户的注册和登录。通过JPA实现数据库操作
 
